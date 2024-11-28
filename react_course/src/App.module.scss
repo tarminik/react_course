@@ -1,0 +1,61 @@
+@import './styles/variables/variables';
+@import './styles/mixins/mixins';
+
+.app {
+  text-align: center;
+
+  &__header {
+    background-color: $primary-color;
+    min-height: 100vh;
+    @include flex-center;
+    flex-direction: column;
+    @include font-setup($font-size-medium);
+    color: $white;
+  }
+
+  &__logo {
+    height: 40vmin;
+    pointer-events: none;
+
+    @media (prefers-reduced-motion: no-preference) {
+      animation: logoSpin infinite 20s linear;
+    }
+  }
+
+  &__link {
+    color: $secondary-color;
+  }
+
+  &__addForm {
+    margin: $spacing-medium;
+    padding: $spacing-medium;
+    @include flex-center;
+    flex-direction: column;
+    gap: $spacing-small;
+
+    input {
+      padding: $spacing-small;
+      border: 1px solid $border-color;
+      border-radius: $border-radius;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    button {
+      @include button-base;
+      background-color: $secondary-color;
+      color: $primary-color;
+      width: 100%;
+      max-width: 300px;
+    }
+  }
+}
+
+@keyframes logoSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
