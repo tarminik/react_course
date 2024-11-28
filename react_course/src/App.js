@@ -1,128 +1,91 @@
-import React, { useEffect, useState } from 'react';
-import { getArticles } from './helpers/get-articles';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import classNames from 'classnames';
 import Card from './components/Card';
 import styles from './App.module.scss';
+import { 
+  fetchArticles,
+  setSortBy,
+  setSortOrder,
+  sortArticles,
+  addArticle,
+} from './store/slices/articlesSlice';
 
 function App() {
-  const [articles, setArticles] = useState([]);
-  const [newCard, setNewCard] = useState({ 
-    title: '', 
-    text: '', 
-    currentLikes: 0, 
-    commentsCount: 0 
-  });
-  const [sortBy, setSortBy] = useState('date');
-  const [sortOrder, setSortOrder] = useState('desc');
+  const dispatch = useDispatch();
+  const articles = useSelector(state => state.articles.articles);
+  const sortBy = useSelector(state => state.articles.sortBy);
+  const sortOrder = useSelector(state => state.articles.sortOrder);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await getArticles();
-      // Добавляем дату создания, если её нет
-      const enhancedData = data.map(article => ({
-        ...article,
-        createdAt: article.createdAt || new Date().toISOString()
-      }));
-      setArticles(enhancedData);
-    };
-    fetchData();
-  }, []);
+    dispatch(fetchArticles());
+  }, [dispatch]);
 
-  const addCard = () => {
-    if (newCard.title && newCard.text) {
-      const newArticleId = articles.length ? Math.max(...articles.map(item => item.articleId)) + 1 : 1;
-      const cardToAdd = {
-        ...newCard,
-        articleId: newArticleId,
-        createdAt: new Date().toISOString()
-      };
-      setArticles([...articles, cardToAdd]);
-      setNewCard({ title: '', text: '', currentLikes: 0, commentsCount: 0 });
+  const handleAddArticle = () => {
+    const title = prompt('Enter article title:');
+    const text = prompt('Enter article text:');
+    
+    if (title && text) {
+      dispatch(addArticle({
+        title,
+        text,
+        currentLikes: 0,
+      }));
     }
   };
 
-  const handleCardUpdate = (updatedCard) => {
-    setArticles(articles.map(article => 
-      article.articleId === updatedCard.articleId ? updatedCard : article
-    ));
-  };
-
-  const sortArticles = () => {
-    const sortedArticles = [...articles].sort((a, b) => {
-      const compareValue = sortBy === 'date'
-        ? new Date(b.createdAt) - new Date(a.createdAt)
-        : b.currentLikes - a.currentLikes;
-      return sortOrder === 'desc' ? compareValue : -compareValue;
-    });
-    setArticles(sortedArticles);
+  const handleSort = (newSortBy) => {
+    dispatch(setSortBy(newSortBy));
+    dispatch(sortArticles());
   };
 
   const toggleSortOrder = () => {
-    setSortOrder(prev => prev === 'desc' ? 'asc' : 'desc');
+    const newOrder = sortOrder === 'desc' ? 'asc' : 'desc';
+    dispatch(setSortOrder(newOrder));
+    dispatch(sortArticles());
   };
 
   return (
     <div className={styles.app}>
-      <header className={styles.app__header}>
-        <h1>Card List</h1>
-        <div className={styles.app__sortControls}>
+      <header className={styles.header}>
+        <h1>React Course Blog</h1>
+        <div className={styles.controls}>
           <button
-            className={styles.app__sortButton}
-            onClick={() => {
-              setSortBy('date');
-              sortArticles();
-            }}
+            className={classNames(styles.button, styles['button--add'])}
+            onClick={handleAddArticle}
           >
-            Sort by Date {sortBy === 'date' && (sortOrder === 'desc' ? '↓' : '↑')}
+            Add Article
           </button>
-          <button
-            className={styles.app__sortButton}
-            onClick={() => {
-              setSortBy('likes');
-              sortArticles();
-            }}
-          >
-            Sort by Likes {sortBy === 'likes' && (sortOrder === 'desc' ? '↓' : '↑')}
-          </button>
-          <button
-            className={styles.app__sortButton}
-            onClick={toggleSortOrder}
-          >
-            Toggle Order
-          </button>
+          <div className={styles.sortControls}>
+            <button
+              className={styles.button}
+              onClick={() => handleSort('date')}
+            >
+              Sort by Date {sortBy === 'date' && (sortOrder === 'desc' ? '↓' : '↑')}
+            </button>
+            <button
+              className={styles.button}
+              onClick={() => handleSort('likes')}
+            >
+              Sort by Likes {sortBy === 'likes' && (sortOrder === 'desc' ? '↓' : '↑')}
+            </button>
+            <button
+              className={styles.button}
+              onClick={toggleSortOrder}
+            >
+              Toggle Order
+            </button>
+          </div>
         </div>
       </header>
-
-      <div className={styles.app__addForm}>
-        <input
-          type="text"
-          value={newCard.title}
-          onChange={(e) => setNewCard({ ...newCard, title: e.target.value })}
-          placeholder="Title"
-          className={styles.app__input}
-        />
-        <textarea
-          value={newCard.text}
-          onChange={(e) => setNewCard({ ...newCard, text: e.target.value })}
-          placeholder="Text"
-          className={styles.app__textarea}
-        />
-        <button 
-          onClick={addCard}
-          className={styles.app__addButton}
-        >
-          Add Card
-        </button>
-      </div>
-
-      <div className={styles.cardContainer}>
-        {articles.map((item) => (
-          <Card 
-            key={item.articleId} 
-            data={item}
-            onUpdate={handleCardUpdate}
+      <main className={styles.main}>
+        {articles.map((article) => (
+          <Card
+            key={article.articleId}
+            data={article}
           />
         ))}
-      </div>
+      </main>
     </div>
   );
 }
