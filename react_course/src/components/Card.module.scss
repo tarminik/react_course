@@ -4,13 +4,33 @@
 .card {
   @include card-template;
 
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-medium;
+  }
+
   &__title {
     @include font-setup($font-size-large, bold);
-    margin-bottom: $spacing-small;
+    margin: 0;
   }
 
   &__text {
     @include font-setup($font-size-small);
+    margin-bottom: $spacing-medium;
+  }
+
+  &__date {
+    @include font-setup($font-size-small);
+    color: lighten($primary-color, 30%);
+    margin-bottom: $spacing-medium;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: $spacing-small;
     margin-bottom: $spacing-medium;
   }
 
@@ -20,21 +40,147 @@
     &--like {
       background-color: $secondary-color;
       color: $primary-color;
-      margin-right: $spacing-small;
     }
 
     &--comment {
       background-color: $primary-color;
       color: $white;
     }
+
+    &--edit {
+      background-color: #4CAF50;
+      color: $white;
+    }
+
+    &--delete {
+      background-color: #f44336;
+      color: $white;
+    }
+
+    &--save {
+      background-color: #4CAF50;
+      color: $white;
+    }
+
+    &--cancel {
+      background-color: #9e9e9e;
+      color: $white;
+    }
+
+    &--add {
+      background-color: $primary-color;
+      color: $white;
+      width: 100%;
+    }
   }
 
-  @include mobile {
-    width: calc(100% - #{$spacing-medium * 2});
+  &__editForm {
+    margin-bottom: $spacing-medium;
   }
 
-  @include tablet {
-    width: calc(50% - #{$spacing-medium * 2});
+  &__editInput {
+    width: 100%;
+    padding: $spacing-small;
+    margin-bottom: $spacing-small;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    @include font-setup($font-size-medium);
+  }
+
+  &__editTextarea {
+    width: 100%;
+    min-height: 100px;
+    padding: $spacing-small;
+    margin-bottom: $spacing-small;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    resize: vertical;
+    @include font-setup($font-size-small);
+  }
+
+  &__editButtons {
+    display: flex;
+    gap: $spacing-small;
+  }
+
+  &__comments {
+    margin-top: $spacing-medium;
+  }
+
+  &__commentsHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-medium;
+  }
+}
+
+.commentsSection {
+  margin-top: $spacing-medium;
+  padding-top: $spacing-medium;
+  border-top: 1px solid $border-color;
+}
+
+.commentsSortControls {
+  display: flex;
+  gap: $spacing-small;
+  margin-bottom: $spacing-medium;
+  flex-wrap: wrap;
+}
+
+.comment {
+  padding: $spacing-small;
+  margin-bottom: $spacing-small;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  background-color: lighten($border-color, 15%);
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-small;
+  }
+
+  &__date {
+    @include font-setup($font-size-small);
+    color: lighten($primary-color, 30%);
+  }
+
+  &__text {
+    margin-bottom: $spacing-small;
+  }
+
+  &__actions {
+    display: flex;
+    gap: $spacing-small;
+    flex-wrap: wrap;
+  }
+
+  &__editForm {
+    margin: $spacing-small 0;
+  }
+
+  &__editTextarea {
+    width: 100%;
+    min-height: 60px;
+    padding: $spacing-small;
+    margin-bottom: $spacing-small;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    resize: vertical;
+  }
+}
+
+.addComment {
+  margin-top: $spacing-medium;
+
+  &__input {
+    width: 100%;
+    padding: $spacing-small;
+    margin-bottom: $spacing-small;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
   }
 }
 
