@@ -3,7 +3,7 @@ import comments from '../data/comments.json'
 const COMMENTS_LOAD_DURATION = 1000;
 
 function selectByArticleId(totalData, id) {
-    return totalData.filter(({articleId}) => articleId === id)
+    return totalData.filter(({articleId}) => articleId === id.toString())
 }
 
 export async function getComments(articleId) {

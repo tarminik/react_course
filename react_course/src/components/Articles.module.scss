@@ -1,17 +1,72 @@
 @import '../styles/variables/variables';
-@import '../styles/mixins/mixins';
 
 .articles {
+  padding: $spacing-large;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $spacing-large;
+  flex-wrap: wrap;
+  gap: $spacing-medium;
+}
+
+.sortControls {
+  display: flex;
+  gap: $spacing-small;
+}
+
+.button {
+  padding: $spacing-small $spacing-medium;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  background-color: $background-color;
+  color: $text-color;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1rem;
+
+  &:hover {
+    background-color: $secondary-color;
+    border-color: $secondary-color;
+  }
+
+  &.active {
+    background-color: $primary-color;
+    border-color: $primary-color;
+    color: white;
+  }
+}
+
+.addButton {
+  background-color: $primary-color;
+  border-color: $primary-color;
+  color: white;
+
+  &:hover {
+    background-color: darken($primary-color, 10%);
+    border-color: darken($primary-color, 10%);
+  }
+}
+
+.grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2rem;
-  padding: 2rem;
-  
-  &__controls {
-    grid-column: 1 / -1;
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
-  }
+  gap: $spacing-large;
+}
+
+.loading {
+  text-align: center;
+  padding: $spacing-large;
+  font-size: 1.2rem;
+  color: $text-secondary;
+}
+
+.error {
+  text-align: center;
+  padding: $spacing-large;
+  color: $danger-color;
+  font-size: 1.2rem;
 }

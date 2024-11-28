@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getComments } from '../../helpers/get-comments-by-article';
+import { updateCommentsCount } from './articlesSlice';
 
 const initialState = {
   commentsByArticle: {},
-  sortBy: 'date',
-  sortOrder: 'desc',
+  status: 'idle',
+  error: null
 };
 
 export const commentsSlice = createSlice({
@@ -15,6 +16,7 @@ export const commentsSlice = createSlice({
       const { articleId, comments } = action.payload;
       state.commentsByArticle[articleId] = comments.map(comment => ({
         ...comment,
+        id: comment.id || Date.now().toString(),
         createdAt: comment.createdAt || new Date().toISOString(),
         likes: comment.likes || 0,
         isLiked: false,
@@ -27,71 +29,53 @@ export const commentsSlice = createSlice({
       }
       state.commentsByArticle[articleId].push({
         ...comment,
+        id: comment.id || Date.now().toString(),
+        articleId: articleId.toString(),
         createdAt: new Date().toISOString(),
         likes: 0,
         isLiked: false,
       });
     },
-    updateComment: (state, action) => {
-      const { articleId, commentIndex, text } = action.payload;
-      if (state.commentsByArticle[articleId]?.[commentIndex]) {
-        state.commentsByArticle[articleId][commentIndex].text = text;
-      }
-    },
-    removeComment: (state, action) => {
-      const { articleId, commentIndex } = action.payload;
-      if (state.commentsByArticle[articleId]) {
-        state.commentsByArticle[articleId] = state.commentsByArticle[articleId]
-          .filter((_, index) => index !== commentIndex);
-      }
-    },
     toggleCommentLike: (state, action) => {
-      const { articleId, commentIndex } = action.payload;
-      const comment = state.commentsByArticle[articleId]?.[commentIndex];
-      if (comment) {
-        comment.likes = comment.isLiked ? comment.likes - 1 : comment.likes + 1;
-        comment.isLiked = !comment.isLiked;
+      const { articleId, commentId } = action.payload;
+      const comments = state.commentsByArticle[articleId];
+      if (comments) {
+        const comment = comments.find(c => c.id === commentId);
+        if (comment) {
+          comment.isLiked = !comment.isLiked;
+          comment.likes = comment.isLiked ? comment.likes + 1 : comment.likes - 1;
+        }
       }
     },
-    setSortBy: (state, action) => {
-      state.sortBy = action.payload;
+    setStatus: (state, action) => {
+      state.status = action.payload;
     },
-    setSortOrder: (state, action) => {
-      state.sortOrder = action.payload;
-    },
-    sortComments: (state, action) => {
-      const { articleId } = action.payload;
-      if (state.commentsByArticle[articleId]) {
-        state.commentsByArticle[articleId].sort((a, b) => {
-          const compareValue = state.sortBy === 'date'
-            ? new Date(b.createdAt) - new Date(a.createdAt)
-            : b.likes - a.likes;
-          return state.sortOrder === 'desc' ? compareValue : -compareValue;
-        });
-      }
-    },
-  },
+    setError: (state, action) => {
+      state.error = action.payload;
+    }
+  }
 });
 
-// Thunk для асинхронной загрузки комментариев
 export const fetchComments = (articleId) => async (dispatch) => {
   try {
+    dispatch(setStatus('loading'));
     const comments = await getComments(articleId);
     dispatch(setComments({ articleId, comments }));
+    dispatch(updateCommentsCount({ articleId, count: comments.length }));
+    dispatch(setStatus('succeeded'));
   } catch (error) {
     console.error('Error fetching comments:', error);
+    dispatch(setStatus('failed'));
+    dispatch(setError(error.message));
   }
 };
 
-export const {
-  setComments,
-  addComment,
-  updateComment,
-  removeComment,
-  toggleCommentLike,
-  setSortBy,
-  setSortOrder,
-  sortComments,
-} = commentsSlice.actions;
+export const addCommentWithCount = (articleId, comment) => (dispatch, getState) => {
+  dispatch(addComment({ articleId, comment }));
+  const comments = getState().comments.commentsByArticle[articleId] || [];
+  dispatch(updateCommentsCount({ articleId, count: comments.length }));
+};
+
+export const { setComments, addComment, toggleCommentLike, setStatus, setError } = commentsSlice.actions;
 
 export default commentsSlice.reducer;
