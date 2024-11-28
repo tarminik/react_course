@@ -1,32 +1,44 @@
 [
-    {
-      "author": "Sofa",
-      "articleId": 33,
-      "text": "Comment comment comment"
-    },
-    {
-      "author": "Ivan",
-      "articleId": 5,
-      "text": "Random text from Ivan"
-    },
-    {
-      "author": "Oleg",
-      "articleId": 5,
-      "text": "Long text long text long text long text long text long text"
-    },
-    {
-      "author": "Roman",
-      "articleId": 33,
-      "text": "Short text"
-    },
-    {
-      "author": "Bob",
-      "articleId": 16,
-      "text": "Short text from Bob"
-    },
-    {
-      "author": "Roman",
-      "articleId": 11,
-      "text": "Short text from Frank + random random random"
-    }
-  ]
+  {
+    "author": "Алексей",
+    "articleId": "1",
+    "text": "Отличное введение в React! Очень понятно объяснено.",
+    "createdAt": "2023-06-10T15:30:00.000Z",
+    "likes": 3
+  },
+  {
+    "author": "Мария",
+    "articleId": "1",
+    "text": "Спасибо за статью! Наконец-то разобралась с компонентами.",
+    "createdAt": "2023-06-10T16:45:00.000Z",
+    "likes": 2
+  },
+  {
+    "author": "Иван",
+    "articleId": "2",
+    "text": "React Router действительно упрощает навигацию. Хороший обзор!",
+    "createdAt": "2023-06-11T10:20:00.000Z",
+    "likes": 4
+  },
+  {
+    "author": "Елена",
+    "articleId": "2",
+    "text": "А как насчет вложенных маршрутов? Было бы здорово увидеть пример.",
+    "createdAt": "2023-06-11T12:15:00.000Z",
+    "likes": 1
+  },
+  {
+    "author": "Дмитрий",
+    "articleId": "3",
+    "text": "Redux Toolkit сильно упростил работу со стейтом. Раньше приходилось писать намного больше кода.",
+    "createdAt": "2023-06-12T09:30:00.000Z",
+    "likes": 5
+  },
+  {
+    "author": "Анна",
+    "articleId": "3",
+    "text": "Хотелось бы больше примеров использования createAsyncThunk.",
+    "createdAt": "2023-06-12T11:45:00.000Z",
+    "likes": 2
+  }
+]
