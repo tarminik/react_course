@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Card from '../components/Card';
@@ -10,6 +10,15 @@ function ArticlePage() {
   const article = useSelector(state => 
     state.articles.articles.find(a => a.articleId === articleId)
   );
+
+  useEffect(() => {
+    if (article) {
+      console.info(
+        `%cUser visited article: ${article.title} at ${new Date().toLocaleString('ru-RU')}`,
+        'color: #2196F3; font-weight: bold;'
+      );
+    }
+  }, [article]);
 
   if (!article) {
     return <Navigate to="/404" />;

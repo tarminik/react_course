@@ -1,138 +1,159 @@
 @import '../styles/variables/variables';
-@import '../styles/mixins/mixins';
 
 .comments {
-  margin-top: 1rem;
-  padding: 2rem;
-  background-color: $white;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-top: $spacing-medium;
+  padding: $spacing-medium;
+  background-color: $background-color;
+  border-radius: $border-radius;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.title {
-  margin-bottom: 1rem;
-  font-size: 1.2rem;
-  color: $text-primary;
-}
-
-.controls {
+.header {
   display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $spacing-large;
+
+  h3 {
+    margin: 0;
+    color: $text-color;
+  }
 }
 
-.button {
-  padding: 0.5rem 1rem;
-  background-color: #f8f9fa;
-  border: 1px solid #dee2e6;
-  border-radius: 4px;
-  color: $text-primary;
+.sortButtons {
+  display: flex;
+  gap: $spacing-small;
+}
+
+.sortButton {
+  padding: $spacing-small $spacing-medium;
+  border: none;
+  border-radius: $border-radius;
+  background-color: $secondary-color;
+  color: $text-color;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all $transition-duration $transition-timing;
 
   &:hover {
-    background-color: #e9ecef;
-    border-color: #ced4da;
+    background-color: darken($secondary-color, 5%);
   }
 
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-}
-
-.addButton {
-  background-color: $success-color;
-
-  &:hover {
-    background-color: darken($success-color, 10%);
+  &.active {
+    background-color: $primary-color;
+    color: $background-color;
   }
 }
 
-.removeButton {
-  background-color: $danger-color;
-
-  &:hover {
-    background-color: darken($danger-color, 10%);
-  }
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-medium;
+  margin-bottom: $spacing-large;
 }
 
-.addComment {
-  margin-bottom: 1rem;
-}
-
+.input,
 .textarea {
-  width: 100%;
-  min-height: 80px;
-  padding: 0.5rem;
-  margin-bottom: 0.5rem;
-  border: 1px solid #dee2e6;
-  border-radius: 4px;
-  resize: vertical;
-  font-family: inherit;
+  padding: $spacing-small;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  background-color: $background-color;
+  font-size: 1rem;
+  transition: border-color $transition-duration $transition-timing;
 
   &:focus {
     outline: none;
     border-color: $primary-color;
-    box-shadow: 0 0 0 2px rgba($primary-color, 0.2);
   }
 }
 
-.commentsList {
+.textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.submitButton {
+  align-self: flex-start;
+  padding: $spacing-small $spacing-medium;
+  border: none;
+  border-radius: $border-radius;
+  background-color: $primary-color;
+  color: $background-color;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color $transition-duration $transition-timing;
+
+  &:hover {
+    background-color: darken($primary-color, 5%);
+  }
+}
+
+.list {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: $spacing-medium;
 }
 
 .comment {
-  padding: 1rem;
-  background-color: #f8f9fa;
-  border-radius: 8px;
+  padding: $spacing-medium;
+  background-color: $background-color;
+  border-radius: $border-radius;
+  border: 1px solid $border-color;
+  animation: fadeIn $transition-duration $transition-timing;
 }
 
 .commentHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: $spacing-small;
 }
 
 .author {
-  font-weight: 500;
-  color: $text-primary;
+  color: $text-color;
+  font-weight: 600;
 }
 
 .date {
-  font-size: 0.85rem;
   color: $text-secondary;
+  font-size: 0.9rem;
 }
 
-.commentText {
-  color: $text-primary;
-  line-height: 1.5;
-  margin-bottom: 0.5rem;
+.text {
+  color: $text-color;
+  line-height: $line-height-base;
+  margin-bottom: $spacing-small;
 }
 
-.commentActions {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.actionButton {
-  padding: 0.25rem 0.5rem;
+.likeButton {
   background: none;
   border: none;
   color: $text-secondary;
   cursor: pointer;
-  font-size: 0.9rem;
-  transition: all 0.2s ease;
+  padding: $spacing-small;
+  font-size: 1rem;
+  transition: all $transition-duration $transition-timing;
+  display: flex;
+  align-items: center;
+  gap: $spacing-small;
+  border-radius: $border-radius;
 
   &:hover {
-    color: $primary-color;
+    color: $danger-color;
+    background-color: rgba($danger-color, 0.1);
   }
 
   &.liked {
-    color: #ff4757;
+    color: $danger-color;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

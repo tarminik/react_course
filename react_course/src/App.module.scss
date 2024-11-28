@@ -1,32 +1,44 @@
 @import './styles/variables/variables';
-@import './styles/mixins/mixins';
 
 .app {
   min-height: 100vh;
-  background-color: #f0f2f5;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex: 1;
+  background-color: $background-color;
+  padding: $spacing-large;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 $spacing-medium;
 }
 
 .nav {
-  background-color: $white;
-  padding: 1rem 2rem;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  margin-bottom: 2rem;
+  background-color: $background-color;
+  padding: $spacing-medium $spacing-large;
+  box-shadow: $box-shadow;
+  margin-bottom: $spacing-large;
   display: flex;
   justify-content: center;
-  gap: 2rem;
+  gap: $spacing-large;
   position: sticky;
   top: 0;
   z-index: 100;
 }
 
 .navLink {
-  color: $text-primary;
+  color: $text-color;
   text-decoration: none;
   font-weight: 500;
   font-size: 1.1rem;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  transition: all 0.2s ease;
+  padding: $spacing-small $spacing-medium;
+  border-radius: $border-radius;
+  transition: all $transition-duration $transition-timing;
   position: relative;
 
   &:hover {
@@ -34,82 +46,59 @@
     background-color: rgba($primary-color, 0.1);
   }
 
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%) scaleX(0);
-    width: 100%;
-    height: 2px;
-    background-color: $primary-color;
-    transition: transform 0.2s ease;
-  }
-
-  &:hover::after {
-    transform: translateX(-50%) scaleX(1);
-  }
-
-  &--active {
+  &.active {
     color: $primary-color;
-    background-color: rgba($primary-color, 0.1);
     
     &::after {
       content: '';
       position: absolute;
-      bottom: 0;
+      bottom: -3px;
       left: 0;
       width: 100%;
       height: 2px;
       background-color: $primary-color;
-      transform: scaleX(1);
     }
   }
 }
 
 .header {
-  margin-bottom: 20px;
+  margin-bottom: $spacing-medium;
 
   h1 {
-    margin-bottom: 20px;
-    color: $text-primary;
+    margin-bottom: $spacing-medium;
+    color: $text-color;
   }
 }
 
 .controls {
   display: flex;
   justify-content: center;
-  gap: 20px;
-  margin-bottom: 20px;
+  gap: $spacing-medium;
+  margin-bottom: $spacing-medium;
   flex-wrap: wrap;
 }
 
 .sortControls {
   display: flex;
-  gap: 10px;
+  gap: $spacing-small;
   flex-wrap: wrap;
 }
 
 .button {
-  padding: 8px 16px;
+  padding: $spacing-small $spacing-medium;
   border: none;
-  border-radius: 8px;
+  border-radius: $border-radius;
   background-color: $primary-color;
-  color: white;
+  color: $background-color;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all $transition-duration $transition-timing;
   font-weight: 500;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: $box-shadow;
 
   &:hover {
     background-color: darken($primary-color, 10%);
     transform: translateY(-1px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  }
-
-  &:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
   &--add {
