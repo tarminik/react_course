@@ -1,0 +1,159 @@
+@import '../styles/variables/variables';
+
+.comments {
+  margin-top: $spacing-medium;
+  padding: $spacing-medium;
+  background-color: $background-color;
+  border-radius: $border-radius;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $spacing-large;
+
+  h3 {
+    margin: 0;
+    color: $text-color;
+  }
+}
+
+.sortButtons {
+  display: flex;
+  gap: $spacing-small;
+}
+
+.sortButton {
+  padding: $spacing-small $spacing-medium;
+  border: none;
+  border-radius: $border-radius;
+  background-color: $secondary-color;
+  color: $text-color;
+  cursor: pointer;
+  transition: all $transition-duration $transition-timing;
+
+  &:hover {
+    background-color: darken($secondary-color, 5%);
+  }
+
+  &.active {
+    background-color: $primary-color;
+    color: $background-color;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-medium;
+  margin-bottom: $spacing-large;
+}
+
+.input,
+.textarea {
+  padding: $spacing-small;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  background-color: $background-color;
+  font-size: 1rem;
+  transition: border-color $transition-duration $transition-timing;
+
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+  }
+}
+
+.textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.submitButton {
+  align-self: flex-start;
+  padding: $spacing-small $spacing-medium;
+  border: none;
+  border-radius: $border-radius;
+  background-color: $primary-color;
+  color: $background-color;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color $transition-duration $transition-timing;
+
+  &:hover {
+    background-color: darken($primary-color, 5%);
+  }
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-medium;
+}
+
+.comment {
+  padding: $spacing-medium;
+  background-color: $background-color;
+  border-radius: $border-radius;
+  border: 1px solid $border-color;
+  animation: fadeIn $transition-duration $transition-timing;
+}
+
+.commentHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $spacing-small;
+}
+
+.author {
+  color: $text-color;
+  font-weight: 600;
+}
+
+.date {
+  color: $text-secondary;
+  font-size: 0.9rem;
+}
+
+.text {
+  color: $text-color;
+  line-height: $line-height-base;
+  margin-bottom: $spacing-small;
+}
+
+.likeButton {
+  background: none;
+  border: none;
+  color: $text-secondary;
+  cursor: pointer;
+  padding: $spacing-small;
+  font-size: 1rem;
+  transition: all $transition-duration $transition-timing;
+  display: flex;
+  align-items: center;
+  gap: $spacing-small;
+  border-radius: $border-radius;
+
+  &:hover {
+    color: $danger-color;
+    background-color: rgba($danger-color, 0.1);
+  }
+
+  &.liked {
+    color: $danger-color;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

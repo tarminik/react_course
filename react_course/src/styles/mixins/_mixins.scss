@@ -1,0 +1,82 @@
+@import '../variables/variables';
+
+@mixin font-setup($size, $weight: normal, $line-height: 1.5) {
+  font-size: $size;
+  font-weight: $weight;
+  line-height: $line-height;
+}
+
+@mixin card-template {
+  border: 1px solid $border-color;
+  padding: $spacing-medium;
+  margin: $spacing-medium;
+  border-radius: $border-radius;
+  text-align: left;
+  width: $card-width;
+  background-color: $background-color;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+@mixin button-base {
+  margin-top: $spacing-small;
+  padding: $spacing-small $spacing-medium;
+  cursor: pointer;
+  border: none;
+  border-radius: $border-radius / 2;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+@mixin button {
+  padding: $spacing-small $spacing-medium;
+  border: none;
+  border-radius: $border-radius;
+  background-color: $primary-color;
+  color: $background-color;
+  cursor: pointer;
+  transition: all $transition-duration $transition-timing;
+  font-weight: 500;
+  
+  &:hover {
+    background-color: darken($primary-color, 10%);
+    transform: translateY(-1px);
+  }
+  
+  &:disabled {
+    background-color: $disabled-color;
+    cursor: not-allowed;
+  }
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Media queries mixins
+@mixin mobile {
+  @media (max-width: 767px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: 768px) and (max-width: 1023px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: 1024px) {
+    @content;
+  }
+}

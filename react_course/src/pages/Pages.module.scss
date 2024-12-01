@@ -1,0 +1,324 @@
+@import '../styles/variables/variables';
+
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: $spacing-large;
+}
+
+.title {
+  margin-bottom: $spacing-large;
+  color: $text-color;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.content {
+  color: $text-color;
+  line-height: $line-height-base;
+}
+
+.error {
+  text-align: center;
+  padding: $spacing-large;
+  
+  h1 {
+    color: $danger-color;
+    font-size: 4rem;
+    margin-bottom: $spacing-medium;
+  }
+  
+  p {
+    color: $text-secondary;
+    font-size: 1.2rem;
+    margin-bottom: $spacing-large;
+  }
+  
+  a {
+    color: $primary-color;
+    text-decoration: none;
+    font-weight: bold;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: $spacing-medium;
+  margin-bottom: $spacing-large;
+  flex-wrap: wrap;
+  padding: 0 $spacing-large;
+}
+
+.sortControls {
+  display: flex;
+  gap: $spacing-small;
+  flex-wrap: wrap;
+}
+
+.button {
+  padding: $spacing-small $spacing-medium;
+  border: none;
+  border-radius: $border-radius;
+  background-color: $primary-color;
+  color: $background-color;
+  cursor: pointer;
+  transition: all $transition-duration $transition-timing;
+  font-weight: 500;
+  font-size: 0.9rem;
+
+  &:hover {
+    background-color: darken($primary-color, 10%);
+    transform: translateY(-1px);
+  }
+
+  &--add {
+    background-color: $success-color;
+
+    &:hover {
+      background-color: darken($success-color, 10%);
+    }
+  }
+}
+
+.articlesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $spacing-large;
+  padding: $spacing-large;
+  max-width: 1600px;
+  margin: 0 auto;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    padding: $spacing-medium;
+  }
+}
+
+.articleCard {
+  background-color: $background-color;
+  border-radius: $border-radius;
+  padding: $spacing-medium;
+  box-shadow: $box-shadow;
+  transition: transform $transition-duration $transition-timing;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  h2 {
+    margin: 0 0 $spacing-medium;
+    color: $text-color;
+    font-size: 1.25rem;
+  }
+
+  p {
+    color: $text-color;
+    line-height: $line-height-base;
+    margin-bottom: $spacing-medium;
+  }
+}
+
+.articleMeta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: $spacing-medium;
+  padding-top: $spacing-medium;
+  border-top: 1px solid $border-color;
+  color: $text-secondary;
+  font-size: 0.9rem;
+}
+
+.readMore {
+  color: $primary-color;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color $transition-duration $transition-timing;
+
+  &:hover {
+    color: darken($primary-color, 10%);
+  }
+}
+
+.link {
+  display: inline-block;
+  color: $primary-color;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color $transition-duration $transition-timing;
+
+  &:hover {
+    color: darken($primary-color, 10%);
+  }
+}
+
+.articleLink {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  height: 100%;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.homeContent {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: $spacing-large;
+  text-align: center;
+  background-color: $background-color;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+
+  h1 {
+    font-size: 2.5rem;
+    color: $text-color;
+    margin-bottom: $spacing-medium;
+  }
+}
+
+.description {
+  font-size: 1.2rem;
+  color: $text-secondary;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.featureList {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+
+  li {
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    color: $text-color;
+    font-weight: 500;
+    transition: all 0.2s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      background-color: rgba($primary-color, 0.1);
+      color: $primary-color;
+    }
+  }
+}
+
+.button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background-color: $primary-color;
+  color: $background-color;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: darken($primary-color, 10%);
+    transform: translateY(-2px);
+  }
+}
+
+.authForm {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: $spacing-large;
+  background-color: $background-color;
+  border-radius: $border-radius;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.formGroup {
+  margin-bottom: $spacing-medium;
+}
+
+.input {
+  width: 100%;
+  padding: $spacing-small;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  font-size: 1rem;
+  
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+  }
+}
+
+.error {
+  padding: $spacing-small;
+  margin-bottom: $spacing-medium;
+  color: $danger-color;
+  background-color: rgba($danger-color, 0.1);
+  border-radius: $border-radius;
+  text-align: center;
+}
+
+.articleContainer {
+  background-color: $background-secondary;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  overflow: hidden;
+  margin-bottom: $spacing-large;
+}
+
+.imageContainer {
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  position: relative;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.content {
+  padding: $spacing-large;
+}
+
+.title {
+  margin-bottom: $spacing-medium;
+  color: $text-color;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.meta {
+  display: flex;
+  gap: $spacing-medium;
+  margin-bottom: $spacing-large;
+  color: $text-secondary;
+  font-size: 1rem;
+}
+
+.author {
+  font-weight: bold;
+  color: $text-color;
+}
+
+.text {
+  color: $text-color;
+  line-height: 1.8;
+  font-size: 1.1rem;
+  white-space: pre-wrap;
+}

@@ -1,0 +1,57 @@
+[
+  {
+    "id": "11",
+    "title": "Tesla",
+    "text": "Best company in the world of electric vehicles. Tesla, Inc. is an American multinational automotive and clean energy company headquartered in Austin, Texas. Tesla designs and manufactures electric vehicles, battery energy storage from home to grid-scale, solar panels and solar roof tiles, and related products and services.",
+    "imageUrl": "/assets/images/default-article.svg",
+    "author": "Илон Маск",
+    "createdAt": "2023-10-15T10:00:00.000Z",
+    "likes": 7,
+    "isLiked": false,
+    "commentsCount": 1
+  },
+  {
+    "id": "5",
+    "title": "VK",
+    "text": "VK (ВКонтакте) - крупнейшая российская социальная сеть. Проект запущен 10 октября 2006 года и изначально позиционировал себя как социальная сеть для студентов и выпускников российских вузов, позднее стал называть себя современным, быстрым и эстетичным способом общения в сети.",
+    "imageUrl": "/assets/images/default-article.svg",
+    "author": "Павел Дуров",
+    "createdAt": "2023-10-14T15:30:00.000Z",
+    "likes": 2,
+    "isLiked": false,
+    "commentsCount": 2
+  },
+  {
+    "id": "72",
+    "title": "Искусственный интеллект",
+    "text": "Искусственный интеллект (ИИ) - это способность компьютерных систем выполнять задачи, которые обычно требуют человеческого интеллекта. Эти задачи включают распознавание речи, принятие решений, визуальное восприятие и перевод между языками.",
+    "imageUrl": "/assets/images/default-article.svg",
+    "author": "Алан Тьюринг",
+    "createdAt": "2023-10-13T08:45:00.000Z",
+    "likes": 15,
+    "isLiked": false,
+    "commentsCount": 0
+  },
+  {
+    "id": "33",
+    "title": "Веб-разработка",
+    "text": "Веб-разработка - это работа по созданию веб-сайта или веб-приложения. Основными областями веб-разработки являются веб-дизайн, вёрстка страниц, программирование на стороне клиента и сервера, а также конфигурирование веб-сервера.",
+    "imageUrl": "/assets/images/default-article.svg",
+    "author": "Тим Бернерс-Ли",
+    "createdAt": "2023-10-12T14:20:00.000Z",
+    "likes": 9,
+    "isLiked": false,
+    "commentsCount": 2
+  },
+  {
+    "id": "16",
+    "title": "React и современный фронтенд",
+    "text": "React - это библиотека JavaScript для создания пользовательских интерфейсов. React позволяет создавать сложные UI из маленьких и изолированных частей кода, называемых компонентами. React был создан Facebook и используется многими крупными компаниями.",
+    "imageUrl": "/assets/images/default-article.svg",
+    "author": "Дэн Абрамов",
+    "createdAt": "2023-10-11T11:15:00.000Z",
+    "likes": 11,
+    "isLiked": false,
+    "commentsCount": 1
+  }
+]

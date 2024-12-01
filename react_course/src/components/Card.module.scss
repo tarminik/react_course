@@ -1,0 +1,117 @@
+@import '../styles/variables/variables';
+
+.card {
+  display: block;
+  background-color: $background-secondary;
+  border-radius: $border-radius;
+  overflow: hidden;
+  box-shadow: $box-shadow;
+  transition: all $transition-duration $transition-timing;
+  text-decoration: none;
+  color: inherit;
+  height: 100%;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $box-shadow-hover;
+
+    .image {
+      transform: scale(1.05);
+    }
+  }
+}
+
+.imageContainer {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform $transition-duration $transition-timing;
+}
+
+.content {
+  padding: $spacing-medium;
+}
+
+.title {
+  margin-bottom: $spacing-small;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: $text-color;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.meta {
+  display: flex;
+  gap: $spacing-medium;
+  margin-bottom: $spacing-medium;
+  color: $text-secondary;
+  font-size: 0.9rem;
+}
+
+.author {
+  font-weight: bold;
+  color: $text-color;
+}
+
+.text {
+  color: $text-color;
+  margin-bottom: $spacing-medium;
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.actions {
+  display: flex;
+  gap: $spacing-medium;
+  color: $text-secondary;
+}
+
+.actionButton {
+  display: flex;
+  align-items: center;
+  gap: $spacing-small;
+  padding: $spacing-small;
+  border: none;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  transition: all $transition-duration $transition-timing;
+  border-radius: $border-radius;
+
+  &:hover {
+    background-color: rgba($primary-color, 0.1);
+    color: $primary-color;
+
+    .icon {
+      fill: $primary-color;
+    }
+  }
+
+  &.liked {
+    color: $primary-color;
+
+    .icon {
+      fill: $primary-color;
+    }
+  }
+
+  .icon {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+    transition: fill $transition-duration $transition-timing;
+  }
+}
