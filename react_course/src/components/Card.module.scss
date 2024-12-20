@@ -2,123 +2,178 @@
 @import '../styles/mixins/mixins';
 
 .card {
-  @include card-template;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.cardLink {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.title {
+  font-size: 1.5rem;
+  color: $text-primary;
+  margin: 0 0 1rem;
+  font-weight: 600;
+}
+
+.text {
+  color: $text-secondary;
+  line-height: 1.6;
+  margin: 0 0 1.5rem;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.date {
+  color: $text-secondary;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.commentsButton {
+  background: none;
+  border: none;
+  color: $text-secondary;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: rgba($primary-color, 0.1);
+    color: $primary-color;
+  }
+}
+
+.likeButton {
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &:hover {
+    background-color: rgba(#ff4757, 0.1);
+    color: #ff4757;
+  }
+
+  &.liked {
+    color: #ff4757;
+  }
+}
+
+.commentsSection {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+.comment {
+  background-color: $background-light;
+  padding: $spacing-medium;
+  border-radius: 8px;
+  margin-bottom: $spacing-small;
+  border: 1px solid $border-color;
 
   &__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: $spacing-medium;
-  }
-
-  &__title {
-    @include font-setup($font-size-large, bold);
-    margin: 0;
-  }
-
-  &__text {
-    @include font-setup($font-size-small);
-    margin-bottom: $spacing-medium;
+    margin-bottom: $spacing-small;
   }
 
   &__date {
-    @include font-setup($font-size-small);
-    color: lighten($primary-color, 30%);
-    margin-bottom: $spacing-medium;
+    color: $text-secondary;
+    font-size: 0.8em;
+    font-style: italic;
+  }
+
+  &__text {
+    margin-bottom: $spacing-small;
+    color: $text-primary;
+    line-height: 1.4;
   }
 
   &__actions {
     display: flex;
-    align-items: center;
     gap: $spacing-small;
-    margin-bottom: $spacing-medium;
-  }
-
-  &__button {
-    @include button-base;
-    
-    &--like {
-      background-color: $secondary-color;
-      color: $primary-color;
-    }
-
-    &--comment {
-      background-color: $primary-color;
-      color: $white;
-    }
-
-    &--edit {
-      background-color: #4CAF50;
-      color: $white;
-    }
-
-    &--delete {
-      background-color: #f44336;
-      color: $white;
-    }
-
-    &--save {
-      background-color: #4CAF50;
-      color: $white;
-    }
-
-    &--cancel {
-      background-color: #9e9e9e;
-      color: $white;
-    }
-
-    &--add {
-      background-color: $primary-color;
-      color: $white;
-      width: 100%;
-    }
   }
 
   &__editForm {
-    margin-bottom: $spacing-medium;
-  }
-
-  &__editInput {
-    width: 100%;
-    padding: $spacing-small;
-    margin-bottom: $spacing-small;
-    border: 1px solid $border-color;
-    border-radius: $border-radius;
-    @include font-setup($font-size-medium);
-  }
-
-  &__editTextarea {
-    width: 100%;
-    min-height: 100px;
-    padding: $spacing-small;
-    margin-bottom: $spacing-small;
-    border: 1px solid $border-color;
-    border-radius: $border-radius;
-    resize: vertical;
-    @include font-setup($font-size-small);
-  }
-
-  &__editButtons {
     display: flex;
+    flex-direction: column;
     gap: $spacing-small;
   }
 
-  &__comments {
-    margin-top: $spacing-medium;
-  }
+  &__editTextarea {
+    padding: $spacing-small;
+    border: 1px solid $border-color;
+    border-radius: 6px;
+    font-size: 1em;
+    min-height: 60px;
+    resize: vertical;
+    transition: border-color 0.2s ease;
 
-  &__commentsHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: $spacing-medium;
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+    }
   }
 }
 
-.commentsSection {
+.addComment {
+  display: flex;
+  gap: $spacing-small;
   margin-top: $spacing-medium;
-  padding-top: $spacing-medium;
-  border-top: 1px solid $border-color;
+
+  &__input {
+    flex: 1;
+    padding: $spacing-small;
+    border: 1px solid $border-color;
+    border-radius: 6px;
+    font-size: 1em;
+    transition: border-color 0.2s ease;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+    }
+  }
 }
 
 .commentsSortControls {
@@ -126,68 +181,4 @@
   gap: $spacing-small;
   margin-bottom: $spacing-medium;
   flex-wrap: wrap;
-}
-
-.comment {
-  padding: $spacing-small;
-  margin-bottom: $spacing-small;
-  border: 1px solid $border-color;
-  border-radius: $border-radius;
-  background-color: lighten($border-color, 15%);
-
-  &__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: $spacing-small;
-  }
-
-  &__date {
-    @include font-setup($font-size-small);
-    color: lighten($primary-color, 30%);
-  }
-
-  &__text {
-    margin-bottom: $spacing-small;
-  }
-
-  &__actions {
-    display: flex;
-    gap: $spacing-small;
-    flex-wrap: wrap;
-  }
-
-  &__editForm {
-    margin: $spacing-small 0;
-  }
-
-  &__editTextarea {
-    width: 100%;
-    min-height: 60px;
-    padding: $spacing-small;
-    margin-bottom: $spacing-small;
-    border: 1px solid $border-color;
-    border-radius: $border-radius;
-    resize: vertical;
-  }
-}
-
-.addComment {
-  margin-top: $spacing-medium;
-
-  &__input {
-    width: 100%;
-    padding: $spacing-small;
-    margin-bottom: $spacing-small;
-    border: 1px solid $border-color;
-    border-radius: $border-radius;
-  }
-}
-
-.cardContainer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: $spacing-medium;
-  padding: $spacing-medium;
 }

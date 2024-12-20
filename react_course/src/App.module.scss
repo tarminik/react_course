@@ -2,71 +2,137 @@
 @import './styles/mixins/mixins';
 
 .app {
-  text-align: center;
+  min-height: 100vh;
+  background-color: #f0f2f5;
+}
 
-  &__header {
+.nav {
+  background-color: $white;
+  padding: 1rem 2rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navLink {
+  color: $text-primary;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  position: relative;
+
+  &:hover {
+    color: $primary-color;
+    background-color: rgba($primary-color, 0.1);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 100%;
+    height: 2px;
     background-color: $primary-color;
-    padding: $spacing-large;
-    color: $white;
-    margin-bottom: $spacing-large;
+    transition: transform 0.2s ease;
   }
 
-  &__sortControls {
-    display: flex;
-    justify-content: center;
-    gap: $spacing-medium;
-    margin-top: $spacing-medium;
-    flex-wrap: wrap;
+  &:hover::after {
+    transform: translateX(-50%) scaleX(1);
   }
 
-  &__sortButton {
-    @include button-base;
-    background-color: $secondary-color;
+  &--active {
     color: $primary-color;
-    min-width: 120px;
+    background-color: rgba($primary-color, 0.1);
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: $primary-color;
+      transform: scaleX(1);
+    }
+  }
+}
+
+.header {
+  margin-bottom: 20px;
+
+  h1 {
+    margin-bottom: 20px;
+    color: $text-primary;
+  }
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.sortControls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: $primary-color;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    background-color: darken($primary-color, 10%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   }
 
-  &__addForm {
-    max-width: 600px;
-    margin: 0 auto $spacing-large;
-    padding: $spacing-medium;
-    background-color: lighten($primary-color, 70%);
-    border-radius: $border-radius;
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
-  &__input,
-  &__textarea {
-    width: 100%;
-    padding: $spacing-small;
-    margin-bottom: $spacing-medium;
-    border: 1px solid $border-color;
-    border-radius: $border-radius;
-    @include font-setup($font-size-small);
-  }
+  &--add {
+    background-color: $success-color;
 
-  &__textarea {
-    min-height: 100px;
-    resize: vertical;
-  }
-
-  &__addButton {
-    @include button-base;
-    background-color: $secondary-color;
-    color: $primary-color;
-    width: 100%;
-    padding: $spacing-medium;
+    &:hover {
+      background-color: darken($success-color, 10%);
+    }
   }
 }
 
 .cardContainer {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: $spacing-medium;
-  padding: $spacing-medium;
-  max-width: 1200px;
-  margin: 0 auto;
-
-  @include mobile {
+  gap: 3rem;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @media (max-width: 600px) {
     grid-template-columns: 1fr;
   }
 }
