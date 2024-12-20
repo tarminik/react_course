@@ -1,0 +1,47 @@
+@import '../styles/variables/variables';
+@import '../styles/mixins/mixins';
+
+.card {
+  @include card-template;
+
+  &__title {
+    @include font-setup($font-size-large, bold);
+    margin-bottom: $spacing-small;
+  }
+
+  &__text {
+    @include font-setup($font-size-small);
+    margin-bottom: $spacing-medium;
+  }
+
+  &__button {
+    @include button-base;
+    
+    &--like {
+      background-color: $secondary-color;
+      color: $primary-color;
+      margin-right: $spacing-small;
+    }
+
+    &--comment {
+      background-color: $primary-color;
+      color: $white;
+    }
+  }
+
+  @include mobile {
+    width: calc(100% - #{$spacing-medium * 2});
+  }
+
+  @include tablet {
+    width: calc(50% - #{$spacing-medium * 2});
+  }
+}
+
+.cardContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: $spacing-medium;
+  padding: $spacing-medium;
+}

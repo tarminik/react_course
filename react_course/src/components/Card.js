@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getComments } from '../helpers/get-comments-by-article';
-import './Card.css';
+import classNames from 'classnames';
+import styles from './Card.module.scss';
 
 function Card({ data }) {
   const [likes, setLikes] = useState(data.currentLikes);
@@ -40,27 +41,38 @@ function Card({ data }) {
   };
 
   return (
-    <div className="card">
-      <h3>{data.title}</h3>
-      <p>{data.text}</p>
+    <div className={styles.card}>
+      <h3 className={styles.card__title}>{data.title}</h3>
+      <p className={styles.card__text}>{data.text}</p>
       <div>
         <span>Likes: {likes}</span>
-        <button onClick={toggleLike}>
+        <button
+          className={classNames(styles.card__button, styles['card__button--like'])}
+          onClick={toggleLike}
+        >
           {liked ? 'Unlike' : 'Like'}
         </button>
       </div>
       <div>
         <span>Comments: {data.commentsCount}</span>
-        <button onClick={toggleComments}>
+        <button
+          className={classNames(styles.card__button, styles['card__button--comment'])}
+          onClick={toggleComments}
+        >
           {commentsVisible ? 'Hide Comments' : 'Show Comments'}
         </button>
       </div>
       {commentsVisible && (
-        <div className="comments-section">
+        <div className={styles.commentsSection}>
           {comments.map((comment, index) => (
-            <div key={index} className="comment">
+            <div key={index} className={styles.comment}>
               <p><strong>{comment.author}:</strong> {comment.text}</p>
-              <button onClick={() => removeComment(index)}>Delete</button>
+              <button
+                className={classNames(styles.card__button, styles['card__button--delete'])}
+                onClick={() => removeComment(index)}
+              >
+                Delete
+              </button>
             </div>
           ))}
           <input
@@ -69,7 +81,12 @@ function Card({ data }) {
             onChange={(e) => setNewComment(e.target.value)}
             placeholder="Add a comment"
           />
-          <button onClick={addComment}>Add Comment</button>
+          <button
+            className={classNames(styles.card__button, styles['card__button--add'])}
+            onClick={addComment}
+          >
+            Add Comment
+          </button>
         </div>
       )}
     </div>

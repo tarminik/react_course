@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getArticles } from './helpers/get-articles';
 import Card from './components/Card';
-import './App.css';
+import styles from './App.module.scss';
 
 function App() {
   const [articles, setArticles] = useState([]);
@@ -27,16 +27,16 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className={styles.app}>
+      <header className={styles.app__header}>
         <h1>Card List</h1>
       </header>
-      <div className="card-container">
+      <div className={styles.cardContainer}>
         {articles.map((item) => (
           <Card key={item.articleId} data={item} />
         ))}
       </div>
-      <div className="add-card-form">
+      <div className={styles.app__addForm}>
         <input
           type="text"
           value={newCard.title}
