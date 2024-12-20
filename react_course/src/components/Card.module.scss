@@ -1,13 +1,12 @@
 @import '../styles/variables/variables';
-@import '../styles/mixins/mixins';
 
 .card {
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  padding: 1.5rem;
-  margin-bottom: 1.5rem;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background-color: $background-color;
+  border-radius: $border-radius;
+  padding: $spacing-large;
+  margin-bottom: $spacing-medium;
+  box-shadow: $box-shadow;
+  transition: transform $transition-duration $transition-timing;
 
   &:hover {
     transform: translateY(-2px);
@@ -26,87 +25,86 @@
 }
 
 .title {
+  margin: 0 0 $spacing-medium;
+  color: $text-color;
   font-size: 1.5rem;
-  color: $text-primary;
-  margin: 0 0 1rem;
   font-weight: 600;
 }
 
 .text {
-  color: $text-secondary;
-  line-height: 1.6;
-  margin: 0 0 1.5rem;
+  color: $text-color;
+  line-height: $line-height-base;
+  margin-bottom: $spacing-large;
 }
 
 .footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 1rem;
-  border-top: 1px solid #eee;
+  margin-top: $spacing-medium;
+  padding-top: $spacing-medium;
+  border-top: 1px solid $border-color;
 }
 
 .meta {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: $spacing-medium;
 }
 
 .date {
   color: $text-secondary;
   font-size: 0.9rem;
-  font-style: italic;
 }
 
 .commentsButton {
   background: none;
   border: none;
   color: $text-secondary;
-  font-size: 0.9rem;
   cursor: pointer;
-  padding: 0.5rem;
-  border-radius: 4px;
-  transition: all 0.2s ease;
+  padding: $spacing-small;
+  font-size: 0.9rem;
+  transition: all $transition-duration $transition-timing;
 
   &:hover {
-    background-color: rgba($primary-color, 0.1);
     color: $primary-color;
+    background-color: rgba($primary-color, 0.1);
   }
 }
 
 .likeButton {
   background: none;
   border: none;
-  color: #666;
+  color: $text-secondary;
   cursor: pointer;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
+  padding: $spacing-small;
   font-size: 1rem;
-  transition: all 0.2s ease;
+  transition: all $transition-duration $transition-timing;
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  border-radius: $border-radius;
 
   &:hover {
-    background-color: rgba(#ff4757, 0.1);
-    color: #ff4757;
+    color: $danger-color;
+    background-color: rgba($danger-color, 0.1);
   }
 
   &.liked {
-    color: #ff4757;
+    color: $danger-color;
   }
 }
 
 .commentsSection {
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid #eee;
+  margin-top: $spacing-large;
+  padding-top: $spacing-large;
+  border-top: 1px solid $border-color;
 }
 
 .comment {
-  background-color: $background-light;
+  background-color: $background-color;
   padding: $spacing-medium;
-  border-radius: 8px;
+  border-radius: $border-radius;
   margin-bottom: $spacing-small;
   border: 1px solid $border-color;
 
@@ -117,16 +115,20 @@
     margin-bottom: $spacing-small;
   }
 
+  &__author {
+    font-weight: bold;
+    color: $text-color;
+  }
+
   &__date {
     color: $text-secondary;
-    font-size: 0.8em;
-    font-style: italic;
+    font-size: 0.8rem;
   }
 
   &__text {
     margin-bottom: $spacing-small;
-    color: $text-primary;
-    line-height: 1.4;
+    color: $text-color;
+    line-height: $line-height-base;
   }
 
   &__actions {
@@ -134,51 +136,23 @@
     gap: $spacing-small;
   }
 
-  &__editForm {
-    display: flex;
-    flex-direction: column;
-    gap: $spacing-small;
-  }
-
-  &__editTextarea {
+  &__button {
+    background: none;
+    border: none;
+    color: $text-secondary;
+    cursor: pointer;
     padding: $spacing-small;
-    border: 1px solid $border-color;
-    border-radius: 6px;
-    font-size: 1em;
-    min-height: 60px;
-    resize: vertical;
-    transition: border-color 0.2s ease;
+    font-size: 0.9rem;
+    transition: all $transition-duration $transition-timing;
 
-    &:focus {
-      outline: none;
-      border-color: $primary-color;
+    &:hover {
+      color: $primary-color;
+    }
+
+    &--danger {
+      &:hover {
+        color: $danger-color;
+      }
     }
   }
-}
-
-.addComment {
-  display: flex;
-  gap: $spacing-small;
-  margin-top: $spacing-medium;
-
-  &__input {
-    flex: 1;
-    padding: $spacing-small;
-    border: 1px solid $border-color;
-    border-radius: 6px;
-    font-size: 1em;
-    transition: border-color 0.2s ease;
-
-    &:focus {
-      outline: none;
-      border-color: $primary-color;
-    }
-  }
-}
-
-.commentsSortControls {
-  display: flex;
-  gap: $spacing-small;
-  margin-bottom: $spacing-medium;
-  flex-wrap: wrap;
 }

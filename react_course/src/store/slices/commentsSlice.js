@@ -3,8 +3,8 @@ import { getComments } from '../../helpers/get-comments-by-article';
 
 const initialState = {
   commentsByArticle: {},
-  sortBy: 'date',
-  sortOrder: 'desc',
+  status: 'idle',
+  error: null
 };
 
 export const commentsSlice = createSlice({
@@ -32,66 +32,37 @@ export const commentsSlice = createSlice({
         isLiked: false,
       });
     },
-    updateComment: (state, action) => {
-      const { articleId, commentIndex, text } = action.payload;
-      if (state.commentsByArticle[articleId]?.[commentIndex]) {
-        state.commentsByArticle[articleId][commentIndex].text = text;
-      }
-    },
-    removeComment: (state, action) => {
-      const { articleId, commentIndex } = action.payload;
-      if (state.commentsByArticle[articleId]) {
-        state.commentsByArticle[articleId] = state.commentsByArticle[articleId]
-          .filter((_, index) => index !== commentIndex);
-      }
-    },
     toggleCommentLike: (state, action) => {
       const { articleId, commentIndex } = action.payload;
       const comment = state.commentsByArticle[articleId]?.[commentIndex];
       if (comment) {
-        comment.likes = comment.isLiked ? comment.likes - 1 : comment.likes + 1;
         comment.isLiked = !comment.isLiked;
+        comment.likes = comment.isLiked ? comment.likes + 1 : comment.likes - 1;
       }
     },
-    setSortBy: (state, action) => {
-      state.sortBy = action.payload;
+    setStatus: (state, action) => {
+      state.status = action.payload;
     },
-    setSortOrder: (state, action) => {
-      state.sortOrder = action.payload;
-    },
-    sortComments: (state, action) => {
-      const { articleId } = action.payload;
-      if (state.commentsByArticle[articleId]) {
-        state.commentsByArticle[articleId].sort((a, b) => {
-          const compareValue = state.sortBy === 'date'
-            ? new Date(b.createdAt) - new Date(a.createdAt)
-            : b.likes - a.likes;
-          return state.sortOrder === 'desc' ? compareValue : -compareValue;
-        });
-      }
-    },
-  },
+    setError: (state, action) => {
+      state.error = action.payload;
+    }
+  }
 });
 
 // Thunk для асинхронной загрузки комментариев
 export const fetchComments = (articleId) => async (dispatch) => {
   try {
+    dispatch({ type: 'comments/setStatus', payload: 'loading' });
     const comments = await getComments(articleId);
     dispatch(setComments({ articleId, comments }));
+    dispatch({ type: 'comments/setStatus', payload: 'succeeded' });
   } catch (error) {
     console.error('Error fetching comments:', error);
+    dispatch({ type: 'comments/setStatus', payload: 'failed' });
+    dispatch({ type: 'comments/setError', payload: error.message });
   }
 };
 
-export const {
-  setComments,
-  addComment,
-  updateComment,
-  removeComment,
-  toggleCommentLike,
-  setSortBy,
-  setSortOrder,
-  sortComments,
-} = commentsSlice.actions;
+export const { setComments, addComment, toggleCommentLike, setStatus, setError } = commentsSlice.actions;
 
 export default commentsSlice.reducer;
