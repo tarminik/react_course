@@ -1,76 +1,62 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom';
-import classNames from 'classnames';
-import styles from './Card.module.scss';
 import { toggleArticleLike } from '../store/slices/articlesSlice';
-import Comments from './Comments';
+import styles from './Card.module.scss';
+import { ReactComponent as LikeIcon } from '../assets/icons/like.svg';
+import { ReactComponent as CommentIcon } from '../assets/icons/comment.svg';
+import defaultImage from '../assets/images/default-article.svg';
 
-function Card({ data, showFullContent = false }) {
-  const [showComments, setShowComments] = useState(false);
+function Card({ data }) {
   const dispatch = useDispatch();
-  const location = useLocation();
-  const isArticlePage = location.pathname.includes('/articles/');
 
   const handleLikeClick = (e) => {
     e.preventDefault();
-    dispatch(toggleArticleLike({ articleId: data.articleId }));
+    dispatch(toggleArticleLike(data.id));
   };
 
-  const toggleComments = (e) => {
-    e.preventDefault();
-    setShowComments(!showComments);
+  const handleImageError = (e) => {
+    e.target.src = defaultImage;
   };
-
-  const displayText = showFullContent 
-    ? data.text 
-    : data.text.length > 100 
-      ? `${data.text.slice(0, 100)}...` 
-      : data.text;
-
-  const formattedDate = data.createdAt 
-    ? new Date(data.createdAt).toLocaleDateString('ru-RU', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      })
-    : 'Дата не указана';
 
   return (
-    <article className={styles.card}>
-      <Link to={`/articles/${data.articleId}`} className={styles.cardLink}>
+    <Link to={`/articles/${data.id}`} className={styles.card}>
+      <div className={styles.imageContainer}>
+        <img 
+          src={data.imageUrl || defaultImage} 
+          alt={data.title} 
+          className={styles.image}
+          onError={handleImageError}
+        />
+      </div>
+      <div className={styles.content}>
         <h2 className={styles.title}>{data.title}</h2>
-        <p className={styles.text}>{displayText}</p>
-        
-        <div className={styles.footer}>
-          <div className={styles.meta}>
-            <span className={styles.date}>{formattedDate}</span>
-            {!isArticlePage && (
-              <button 
-                className={styles.commentsButton}
-                onClick={toggleComments}
-              >
-                💬 Комментарии
-              </button>
-            )}
-          </div>
-          <button
-            className={classNames(styles.likeButton, {
-              [styles.liked]: data.isLiked,
+        <div className={styles.meta}>
+          <span className={styles.author}>{data.author}</span>
+          <span className={styles.date}>
+            {new Date(data.createdAt).toLocaleDateString('ru-RU', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
             })}
+          </span>
+        </div>
+        <p className={styles.text}>{data.text}</p>
+        <div className={styles.actions}>
+          <button 
+            className={`${styles.actionButton} ${data.isLiked ? styles.liked : ''}`}
             onClick={handleLikeClick}
           >
-            ❤ {data.currentLikes}
+            <LikeIcon className={styles.icon} />
+            <span>{data.likes}</span>
           </button>
+          <div className={styles.actionButton}>
+            <CommentIcon className={styles.icon} />
+            <span>{data.commentsCount}</span>
+          </div>
         </div>
-      </Link>
-      
-      {showComments && !isArticlePage && (
-        <div className={styles.commentsSection}>
-          <Comments articleId={data.articleId} />
-        </div>
-      )}
-    </article>
+      </div>
+    </Link>
   );
 }
 
