@@ -6,56 +6,67 @@
 
   &__header {
     background-color: $primary-color;
-    min-height: 100vh;
-    @include flex-center;
-    flex-direction: column;
-    @include font-setup($font-size-medium);
+    padding: $spacing-large;
     color: $white;
+    margin-bottom: $spacing-large;
   }
 
-  &__logo {
-    height: 40vmin;
-    pointer-events: none;
-
-    @media (prefers-reduced-motion: no-preference) {
-      animation: logoSpin infinite 20s linear;
-    }
+  &__sortControls {
+    display: flex;
+    justify-content: center;
+    gap: $spacing-medium;
+    margin-top: $spacing-medium;
+    flex-wrap: wrap;
   }
 
-  &__link {
-    color: $secondary-color;
+  &__sortButton {
+    @include button-base;
+    background-color: $secondary-color;
+    color: $primary-color;
+    min-width: 120px;
   }
 
   &__addForm {
-    margin: $spacing-medium;
+    max-width: 600px;
+    margin: 0 auto $spacing-large;
     padding: $spacing-medium;
-    @include flex-center;
-    flex-direction: column;
-    gap: $spacing-small;
+    background-color: lighten($primary-color, 70%);
+    border-radius: $border-radius;
+  }
 
-    input {
-      padding: $spacing-small;
-      border: 1px solid $border-color;
-      border-radius: $border-radius;
-      width: 100%;
-      max-width: 300px;
-    }
+  &__input,
+  &__textarea {
+    width: 100%;
+    padding: $spacing-small;
+    margin-bottom: $spacing-medium;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    @include font-setup($font-size-small);
+  }
 
-    button {
-      @include button-base;
-      background-color: $secondary-color;
-      color: $primary-color;
-      width: 100%;
-      max-width: 300px;
-    }
+  &__textarea {
+    min-height: 100px;
+    resize: vertical;
+  }
+
+  &__addButton {
+    @include button-base;
+    background-color: $secondary-color;
+    color: $primary-color;
+    width: 100%;
+    padding: $spacing-medium;
   }
 }
 
-@keyframes logoSpin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+.cardContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: $spacing-medium;
+  padding: $spacing-medium;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  @include mobile {
+    grid-template-columns: 1fr;
   }
 }
